@@ -1,2 +1,2 @@
 # pulumi-challenge
-Pulumi Deploy and Document Challenge
+Pulumi Deploy and Document Challenge Demo
