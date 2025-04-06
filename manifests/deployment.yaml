@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pulumi-challenge-demo-deployment
+  labels:
+    app: pulumi-challenge-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pulumi-challenge-demo
+  template:
+    metadata:
+      labels:
+        app: pulumi-challenge-demo
+    spec:
+      containers:
+      - name: pulumi-challenge-demo
+        image: pulumi-challenge-demo:latest
+        imagePullPolicy: Never
+        env:
+        - name: PULUMI_ORG_NAME
+          value: your-org-name
+        - name: PULUMI_PROJECT_NAME
+          value: your-project-name
+        - name: PULUMI_ENV_NAME
+          value: your-env-name
+        - name: PULUMI_ACCESS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: access_token
+              name: pulumi-secrets
+        resources:
+          limits:
+            cpu: "150m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+---
